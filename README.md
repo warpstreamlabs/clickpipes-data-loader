@@ -13,7 +13,7 @@ Sample datasets of various sizes are available (rows, uncompressed size, compres
 
 An ordered sample dataset can be downloaded [here](https://datasets-documentation.s3.eu-west-3.amazonaws.com/http_logs/logs-534.csv.gz) containing 534m rows.
 
-Once it's downloaded, you can follow [these instructions](https://github.com/warpstreamlabs/warpstream-fly-io-template) to deploy a test WarpStream cluster to Fly.io or [these instructions](https://railway.app/template/30Xa3Y?referralCode=kKBYG0) to deploy on Railway.
+Once it's downloaded, you can follow [these instructions](https://github.com/warpstreamlabs/warpstream-fly-io-template) to deploy a WarpStream cluster with self-hosted Agents to Fly.io or [these instructions](https://railway.app/template/30Xa3Y?referralCode=kKBYG0) to deploy on Railway. Or, you can use a WarpStream Serverless cluster, and leave it to WarpStream to manage everything for you.
 
 Once you have a functioning WarpStream cluster with SASL credentials, you can run this script:
 
