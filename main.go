@@ -83,9 +83,10 @@ func main() {
 	}
 
 	var (
-		schema  []string
-		limiter *rate.Limiter
-		start   = time.Now()
+		schema      []string
+		limiter     *rate.Limiter
+		start       = time.Now()
+		writenBytes = 0
 	)
 	if *ratelimit > 0 {
 		limiter = rate.NewLimiter(rate.Limit(*ratelimit), *ratelimit)
@@ -98,8 +99,9 @@ func main() {
 		}
 
 		if i%10_000 == 0 {
-			fmt.Printf("wrote %d records in %s, rows/s: %f\n",
-				i, time.Since(start), float64(i)/(time.Since(start).Seconds()))
+			fmt.Printf("wrote %d records in %s, rows/s: %f, mib/s:%f\n",
+				i, time.Since(start), float64(i)/(time.Since(start).Seconds()),
+				(float64(writenBytes)/1024/1024)/(time.Since(start).Seconds()))
 		}
 
 		record, err := csvReader.Read()
@@ -129,6 +131,8 @@ func main() {
 		if err != nil {
 			panic(fmt.Sprintf("error marshaling document as JSON: %v", err))
 		}
+
+		writenBytes += len(marshaled)
 
 		client.Produce(context.Background(), &kgo.Record{
 			Value: marshaled,
